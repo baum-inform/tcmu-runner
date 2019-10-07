@@ -170,6 +170,23 @@ target_include_directories(handler_file
   PUBLIC ${PROJECT_SOURCE_DIR}/ccan
   )
 
+# Stuff for building the file handler
+add_library(handler_swarm
+  SHARED
+  handler_swarm.c
+  )
+set_target_properties(handler_swarm
+  PROPERTIES
+  COMPILE_FLAGS "-DUSE_FTCLIENT"
+  PREFIX ""
+  )
+target_include_directories(handler_swarm
+  PUBLIC ${PROJECT_SOURCE_DIR}/ccan
+  PRIVATE ${PROJECT_SOURCE_DIR}/../../
+  )
+install(TARGETS handler_swarm DESTINATION ${CMAKE_INSTALL_LIBDIR}/tcmu-runner)
+
+
 if (with-fbo)
 	# Stuff for building the file optical handler
 	add_library(handler_file_optical
