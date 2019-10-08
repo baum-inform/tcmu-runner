@@ -175,6 +175,18 @@ add_library(handler_swarm
   SHARED
   handler_swarm.c
   )
+
+target_link_directories( handler_swarm 
+  PRIVATE ${PROJECT_SOURCE_DIR}/../../build
+)
+find_package(OpenSSL REQUIRED)
+
+target_link_libraries( handler_swarm 
+  libftransferc.a
+  ftransfer
+  libshare.a
+  ubsan
+)
 set_target_properties(handler_swarm
   PROPERTIES
   COMPILE_FLAGS "-DUSE_FTCLIENT"

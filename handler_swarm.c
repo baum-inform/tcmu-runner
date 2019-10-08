@@ -78,7 +78,7 @@ static char* swarm_tcmu_make_devname(const char * devname)
 // buf length must be at least (MD5_DIGEST_LENGTH * 2 + 1)
 static void md5(const char *data, char *buf) {
     unsigned char digest[MD5_DIGEST_LENGTH] = {0};
-    MD5((const uint8_t*)data, strlen(data), digest);
+    //MD5((const uint8_t*)data, strlen(data), digest);
     for(int i = 0; i < MD5_DIGEST_LENGTH; ++i, buf += 2) {
         sprintf(buf, "%02x", (unsigned int)digest[i]);
     }
@@ -451,13 +451,8 @@ static struct tcmur_handler swarm_handler = {
     .nr_threads = 1,
 };
 
-#ifdef HANDLER_SWARM
-// for tcmu-runner handler
-/* Entry point must be named "handler_init". */
+
 int handler_init(void)
-#else
-int swarm_tcmu_handler_init(void)
-#endif
 {
     return tcmur_register_handler(&swarm_handler);
 }
